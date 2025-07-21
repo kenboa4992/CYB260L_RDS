@@ -1,74 +1,11 @@
-# CloudFormation Template to Create a VPC
-AWSTemplateFormatVersion: '2010-09-09'
-Description: This template creates an AWS Virtual Private Cloud (VPC) in the US-West-2 region.
-
-Resources:
-  KenboaVPC:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock: 10.0.0.0/16
-      EnableDnsSupport: true
-      EnableDnsHostnames: true
-      Tags:
-        - Key: Name
-          Value: kenboa4992
-
-  VPCGatewayAttachment:
-    Type: AWS::EC2::VPCGatewayAttachment
-    Properties:
-      VpcId: !Ref KenboaVPC
-      InternetGatewayId: !Ref InternetGateway
-
-  InternetGateway:
-    Type: AWS::EC2::InternetGateway
-    Properties: {}
-
-  SubnetA:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref KenboaVPC
-      CidrBlock: 10.0.1.0/24
-      AvailabilityZone: !Select [ 0, !GetAZs 'us-west-2' ]
-      MapPublicIpOnLaunch: true
-      Tags:
-        - Key: Name
-          Value: kenboa4992-SubnetA
-
-  SubnetB:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref KenboaVPC
-      CidrBlock: 10.0.2.0/24
-      AvailabilityZone: !Select [ 1, !GetAZs 'us-west-2' ]
-      MapPublicIpOnLaunch: true
-      Tags:
-        - Key: Name
-          Value: kenboa4992-SubnetB
-
-  SubnetC:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref KenboaVPC
-      CidrBlock: 10.0.3.0/24
-      AvailabilityZone: !Select [ 2, !GetAZs 'us-west-2' ]
-      MapPublicIpOnLaunch: true
-      Tags:
-        - Key: Name
-          Value: kenboa4992-SubnetC
-
-Outputs:
-  VPCId:
-    Description: The ID of the created VPC
-    Value: !Ref KenboaVPC
-
-  SubnetAId:
-    Description: The ID of Subnet A
-    Value: !Ref SubnetA
-
-  SubnetBId:
-    Description: The ID of Subnet B
-    Value: !Ref SubnetB
-
-  SubnetCId:
-    Description: The ID of Subnet C
-    Value: !Ref SubnetC
+RdsInstance:
+  Type: AWS::RDS::DBInstance
+  Properties:
+    VPCSecurityGroups:
+      - <SECURITY-GROUP-ID>  # Replace with your actual security group ID
+    AllocatedStorage: '5'
+    DBInstanceClass: db.t3.micro
+    DBInstanceIdentifier: playground-db
+    Engine: MySQL
+    MasterUsername: Admin
+    MasterUserPassword: CloudAcademy123!
