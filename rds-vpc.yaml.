@@ -1,11 +1,19 @@
-RdsInstance:
-  Type: AWS::RDS::DBInstance
-  Properties:
-    VPCSecurityGroups:
-      - <SECURITY-GROUP-ID>  # Replace with your actual security group ID
-    AllocatedStorage: '5'
-    DBInstanceClass: db.t3.micro
-    DBInstanceIdentifier: playground-db
-    Engine: MySQL
-    MasterUsername: Admin
-    MasterUserPassword: CloudAcademy123!
+# Description: This template creates an RDS instance within a VPC.
+# Revision number: 1.0
+# Date: YYYY-MM-DD  # Replace with the current date
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: This template creates an RDS instance within a VPC.
+
+Resources:
+  RdsInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      VPCSecurityGroups:
+        - kenboa4992  # Replace with your actual security group ID without angle brackets
+      AllocatedStorage: '5'
+      DBInstanceClass: db.t3.micro
+      DBInstanceIdentifier: playground-db
+      Engine: MySQL
+      MasterUsername: Admin
+      MasterUserPassword: CloudAcademy123!
